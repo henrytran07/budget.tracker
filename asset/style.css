@@ -62,55 +62,35 @@ header nav a.active {
     padding-bottom: 2px;
 }
 
-/* ===== Summary Cards ===== */
 .summary {
-    display: flex;
-    gap: 24px;
     margin-top: 20px;
     padding: 0 32px;
 }
 
-.summary .balance,
-.summary .income,
-.summary .expense {
+.summary-title {
+    text-align: center;
+    margin: 12px 0 40px;
+    color: navy
+}
+
+.summary-card {
+    display: flex;
+    gap: 24px;
+    text-align: center;
+    width: 50%;
+    margin: 0 auto; 
+}
+
+.balance,
+.income,
+.expense {
     flex: 1;
     background-color: #ffffff;
     border: 1px solid #e2e8f0;
+    border-top: 3px solid navy;
     border-radius: 12px;
     padding: 24px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
-
-.summary .balance {
-    border-top: 3px solid navy;
-}
-
-.summary .income {
-    border-top: 3px solid navy;
-}
-
-.summary .expense {
-    border-top: 3px solid navy;
-}
-
-.summary .label {
-    font-size: 14px;
-    font-weight: 500;
-    color: #64748b;
-    margin: 0 0 8px 0;
-}
-
-.summary h2 {
-    font-size: 32px;
-    font-weight: 700;
-    margin: 0 0 8px 0;
-    font-variant-numeric: tabular-nums;
-    margin-left: 0;
-}
-
-.summary .balance h2 { color: navy; }
-.summary .income h2  { color: navy; }
-.summary .expense h2 { color: navy; }
 
 .trend {
     font-size: 12px;
@@ -124,11 +104,17 @@ header nav a.active {
     padding: 0 32px;
 }
 
+.add-transaction h2 {
+    text-align: center;
+    color: navy;
+}
+
 .transaction-form {
-    display: flex;
+    display: grid;
     gap: 12px;
     align-items: center;
-    margin-top: 12px;
+    margin: 12px auto 0;
+    max-width: 35%;
 }
 
 .form-input {
@@ -142,10 +128,11 @@ header nav a.active {
     background: #ffffff;
     outline: none;
     transition: border 0.2s ease;
+    text-align: center;
 }
 
 .form-input:focus {
-    border: 1px solid navy;
+    border: 1px solid rgb(102, 0, 128);
     box-shadow: 0 0 0 3px rgba(0, 0, 128, 0.1);
 }
 
@@ -161,6 +148,8 @@ header nav a.active {
     cursor: pointer;
     transition: background 0.2s ease;
     white-space: nowrap;
+    width: 30%;
+    margin: 0 auto;
 }
 
 .form-btn:hover {
@@ -169,10 +158,16 @@ header nav a.active {
 
 /* ===== Transactions Table ===== */
 .transactions {
-    margin-top: 40px;
-    padding: 0 32px;
+    max-width: 800px;
+    width: 100%;
+    margin: 40px auto 0;
 }
 
+.transactions .transaction-title{
+    text-align: center;
+    margin: 0;
+    color: navy
+}
 table {
     width: 100%;
     border-collapse: collapse;
@@ -214,63 +209,7 @@ tbody tr:last-child td {
     border-bottom: none;
 }
 
-/* ===== Table Badges ===== */
-.badge {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 500;
-    background: #f1f5f9;
-    color: #475569;
-    text-transform: capitalize;
-}
 
-.type {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 500;
-    text-transform: capitalize;
-}
-
-.type.income {
-    background: #dcfce7;
-    color: #166534;
-}
-
-.type.expense {
-    background: #fee2e2;
-    color: #dc2626;
-}
-
-.amount-income {
-    color: #16a34a;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-}
-
-.amount-expense {
-    color: #dc2626;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-}
-
-/* ===== Spending Insights ===== */
-.spending-overview {
-    margin: 40px 32px;
-}
-
-.chart-container {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-    max-width: 500px;
-    margin: 12px auto 0 auto;
-    height: 400px;
-}
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {

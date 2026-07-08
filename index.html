@@ -16,55 +16,55 @@
 
     <header>
         <h1>Budget Tracker</h1>
-        <nav>
+        <!-- <nav>
             <a href="dashboard.html">Dashboard</a>
             <a href="transaction.html">Transaction</a>
             <a href="budget.html">Budget</a>
             <a href="report.html">Report</a>
-        </nav>
+        </nav> -->
     </header>
 
-    <h2>Summary</h2>
     <section class="summary">
+        <h2 class="summary-title">Summary</h2>
+        <div class="summary-card">
+            <div class="balance">
+                <p class="label">Total Balance</p>
+                <h2 id="total-balance">$0.00</h2>
+                <p class="trend"> -> this month</p>
+            </div>
 
-        <div class="balance">
-            <p class="label">Total Balance</p>
-            <h2 id="total-balance">$0.00</h2>
-            <p class="trend">↑ this month</p>
-        </div>
+            <div class="income">
+                <p class="label">Total Income</p>
+                <h2 id="total-income">$0.00</h2>
+                <p class="trend"> -> this month</p>
+            </div>
 
-        <div class="income">
-            <p class="label">Total Income</p>
-            <h2 id="total-income">$0.00</h2>
-            <p class="trend">↑ this month</p>
-        </div>
-
-        <div class="expense">
-            <p class="label">Total Expense</p>
-            <h2 id="total-expense">$0.00</h2>
-            <p class="trend">↓ this month</p>
+            <div class="expense">
+                <p class="label">Total Expense</p>
+                <h2 id="total-expense">$0.00</h2>
+                <p class="trend">-> this month</p>
+            </div>
         </div>
 
     </section>
 
-    <!-- Add Transaction Form -->
     <section class="add-transaction">
         <h2>Add Transaction</h2>
 
-        <form class="transaction-form" onsubmit="event.preventDefault(); saveTransaction();">
+        <form class="transaction-form">
 
             <input
-                type="text"
+                type="date"
                 id="date"
                 class="form-input"
-                placeholder="Date e.g. 07-07-2026"
+                placeholder="Date"
             />
 
             <input
                 type="text"
                 id="description"
                 class="form-input"
-                placeholder="Description e.g. Groceries"
+                placeholder="What was it for?"
             />
 
             <input
@@ -95,7 +95,7 @@
     </section>
 
     <section class="transactions">
-        <h2>Transactions</h2>
+        <h2 class="transaction-title">Transactions</h2>
         <table>
             <thead>
                 <tr>
