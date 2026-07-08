@@ -103,6 +103,37 @@ header nav a.active {
     color: #94a3b8;
     margin: 0;
 }
+/* ===== Connect Your Bank ===== */
+.sync-to-bank{
+    margin-top: 20px;
+    padding: 0 32px; 
+}
+
+.sync-to-bank-title {
+    text-align: center; 
+    margin: 40px 0 40px; 
+    color: navy
+}
+
+.bank-options{
+    width: 600px;
+    margin: 0 auto; 
+    transform: translateX(100px);
+}
+
+.bank-connection-btn {
+    display: block;
+    height: 35px; 
+    width: 100px;
+    margin: 40px auto 0;
+    border-radius: 8px;
+    color: #fff; 
+    background-color: navy;
+}
+
+.bank-connection-btn:hover {
+    background-color: black; 
+}
 
 /* ===== Add Transaction Form ===== */
 .add-transaction {
@@ -155,7 +186,7 @@ header nav a.active {
     transition: background 0.2s ease;
     white-space: nowrap;
     width: 30%;
-    margin: 0 auto;
+    margin: 40px auto 0;
 }
 
 .form-btn:hover {
