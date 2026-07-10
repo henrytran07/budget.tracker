@@ -16,51 +16,15 @@ body h2 {
 
 /* ===== Header ===== */
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 32px;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    padding: 32px;
 }
 
 header h1 {
-    font-family: "Inter", sans-serif;
-    font-size: 28px;
+    color: navy;
+    font-size: 32px;
     font-weight: 700;
-    color: black;
-    margin: 0;
 }
 
-header h1:hover {
-    color: navy;
-}
-
-header nav {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    margin-left: auto;
-}
-
-header nav a {
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: 600;
-    color: black;
-    transition: color 0.2s ease;
-}
-
-header nav a:hover {
-    color: navy;
-}
-
-header nav a.active {
-    color: navy;
-    border-bottom: 2px solid navy;
-    padding-bottom: 2px;
-}
 
 .summary {
     margin-top: 20px;
@@ -174,19 +138,13 @@ header nav a.active {
 }
 
 .form-btn {
-    padding: 12px 24px;
-    background: navy;
-    color: white;
-    font-size: 14px;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
-    font-family: "Inter", sans-serif;
-    cursor: pointer;
-    transition: background 0.2s ease;
-    white-space: nowrap;
-    width: 30%;
+    display: block;
+    height: 35px; 
+    width: 100px;
     margin: 40px auto 0;
+    border-radius: 8px;
+    color: #fff; 
+    background-color: navy;
 }
 
 .form-btn:hover {

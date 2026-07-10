@@ -1,0 +1,355 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background: #fff;
+    min-height: 100vh;
+}
+
+.fdic-notice {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    width: 100%;
+    max-width: 900px;
+
+    margin: 12px auto;
+    padding: 12px 20px;
+
+    background-color: #eff6ff;
+    border-radius: 0 6px 6px 0;
+}
+
+.fdic-notice img {
+    height: 22px;
+    width: auto;
+    flex-shrink: 0;
+}
+
+
+.fdic-notice-label {
+    font-size: 13px;
+    color: #6b7280;
+    white-space: nowrap;
+}
+
+.fdic-notice-statement {
+    margin: 0;
+    font-size: 13px;
+    color: #6b7280;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.boa-logo-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-bar {
+    margin-left: auto;
+    margin-right: 220px; 
+}
+
+.nav-items {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.secure-area {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    color: grey;
+}
+
+.nav-divider {
+    height: 16px;
+    border-left: 2px dotted #d1d5db;
+}
+
+.nav-link {
+    font-size: 18spx;
+    color: #6b7280;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    color: #374151;
+}
+.boa-logo-header {
+    display: flex; 
+    align-items: center;
+    gap: 5px; 
+    margin-left: 100px; 
+}
+
+.boa-title {
+    padding: 20px; 
+    color: #012169; 
+    background-color: #fff;
+    font-size: 25px
+}
+
+.boa-pic {
+    width: auto; 
+    height: 80px; 
+}
+
+.log-in-title{
+    color: gray; 
+    font-size: 25px; 
+    margin-left: 25px; 
+}
+
+.boa-header {
+    background-color: #C8202F;
+    width: calc(100% - 200px);
+    margin: 0 100px;
+}
+
+.boa-brand {
+    color: white;
+    font-family: sans-serif;
+    font-weight: 400; 
+    font-size: 30px;
+    padding: 5px; 
+    margin-left: 20px; 
+}
+
+.log-in {
+    display: flex;
+    align-items: stretch;
+    margin: 20px;
+}
+
+.log-in-left,
+.log-in-right {
+    flex: 1;
+    padding: 20px;
+}
+
+.log-in-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.log-in-divider {
+    border-left: 1px solid black;
+    margin: 0 30px;
+}
+
+.form-input {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+label[for="user-id"] {
+    font-size: 30px; 
+    transform: translateX(-70px);
+}
+
+#user-id {
+    height: 30; 
+    width: 250;
+    border-radius: 8px; 
+}
+.save-id {
+    margin-top: 10px; 
+    margin-bottom: 100px;
+}
+
+input[type="checkbox"] {
+    width: 13px;
+    height: 13px;
+    border-radius: 4px;
+    accent-color: #1d4ed8;
+    cursor: pointer;
+}
+
+.help-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #3b82f6;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.help-icon:hover {
+    background-color: navy;
+}
+
+label[for="password-id"] {
+    font-size: 30px; 
+    transform: translateX(-56px);
+}
+#password-id {
+    height: 30; 
+    width: 250;
+    border-radius: 8px; 
+}
+
+.forgot-password {
+    margin-top: 30px; 
+    color: blue; 
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+.forgot-password:hover{
+    text-decoration: underline;
+}
+
+.login-btn {
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+
+    width: 100px;
+    padding: 12px;
+
+    border: 2px solid #005f8f;
+    background-color: #0077b6;
+    color: white;
+
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-bottom: 150px;
+}
+
+.log-in-right {
+    display: flex;
+    align-items: stretch;
+}
+
+.support-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.app-promo {
+    flex: 1.25;
+    padding: 20px;
+}
+
+.login-help-section {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.online-banking p,
+.login-help-group p,
+.app-promo p {
+    font-size: 25px;
+    color: rgb(83, 75, 67);
+}
+
+.app-promo > p {
+    margin-left: 70px;
+}
+
+.app-promo img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+}
+
+.login-help-group-divider,
+.online-banking-divider {
+    border-top: 1px solid #d8d2cc;
+    padding-top: 12px;
+}
+
+.login-help-group-divider p,
+.online-banking-divider p {
+    color: #2465d8;
+    font-size: 18px; 
+}
+
+.login-help-group-divider p:hover,
+.online-banking-divider p:hover {
+    text-decoration: underline;
+}
+
+
+
+footer {
+    background-color: rgb(243, 239, 235);
+    min-height: 30px;
+    padding: 20px 12px;
+    margin-left: 20px; 
+}
+
+.info-footer {
+    margin: 0;
+}
+
+.footer-secure-area{
+    font-weight: bold;
+    color: grey; 
+}
+
+.footer-links {
+    margin-top: 20px; 
+    color: blue; 
+}
+
+.footer-privacy:hover, 
+.footer-security:hover,  
+.footer-privacy-choice:hover{
+    text-decoration: underline;
+}
+
+.footer-legal {
+    margin-top: 20px; 
+}
+
+.housing-icon {
+    color: blue; 
+}
+
+.housing-icon:hover {
+    text-decoration: underline;
+}
+
+.housing-icon img {
+    height: 15px; 
+    width: auto;
+}
+
+.boa-copyright {
+    margin-top: 10px; 
+}

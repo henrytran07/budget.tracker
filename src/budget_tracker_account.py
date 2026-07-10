@@ -5,15 +5,15 @@ import matplotlib.pyplot as plt
 import os 
 
 class BudgetTrackerAccount: 
-    def __init__(self, account_id : int, balance : list, income : list, expense : list):
+    def __init__(self, name : str):
         """
             balance, income, expense: list contains the pat 12-month report 
             transaction: list(dict)
         """
-        self.account_id = account_id
-        self.balance = balance
-        self.income = income
-        self.expense = expense
+        self.owner_name = name
+        self.balance = []
+        self.income = []
+        self.expense = []
         self.transactions = []
     
     def get_balance(self): 
@@ -70,7 +70,7 @@ class BudgetTrackerAccount:
         return category_expenses
     def __get_chart_path(self, filename):
         base = os.path.dirname(os.path.abspath(__file__))
-        folder_path = os.path.join(base, "..", "financial_analysis", str(self.account_id))
+        folder_path = os.path.join(base, "..", "financial_analysis", self.owner_name)
         os.makedirs(folder_path, exist_ok=True)
         return os.path.join(folder_path, filename)
     
@@ -81,9 +81,9 @@ class BudgetTrackerAccount:
         category_names = ["Food", "Transport", "Housing", "Shopping", "Other"]
         category_expenses = self.categorize_expenses() 
 
-        plt.title(f"Expense Breakdown by Category - Account {self.account_id}")
+        plt.title(f"Expense Breakdown by Category - Account {self.owner_name}")
         plt.pie(category_expenses, labels=category_names)
-        plt.savefig(self.__get_chart_path(f"pie_chart_{self.account_id}.png"))
+        plt.savefig(self.__get_chart_path(f"pie_chart_{self.owner_name}.png"))
         plt.close()
 
     def __creating_line_chart(self): 
@@ -92,12 +92,12 @@ class BudgetTrackerAccount:
         """
         months = ["Jan", "Feb", "Mar", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
         plt.figure(figsize=(10, 10))
-        plt.title(f"12-Month Balance Trend - Account {self.account_id}")
+        plt.title(f"12-Month Balance Trend - Account {self.owner_name}")
         plt.xlabel("Month")
         plt.ylabel("Total Balance")
         plt.legend()
         plt.plot(months, self.balance)
-        plt.savefig(self.__get_chart_path(f"line_chart_{self.account_id}.png"))
+        plt.savefig(self.__get_chart_path(f"line_chart_{self.owner_name}.png"))
         plt.close() 
     
     def __creating_bar_chart(self): 
@@ -109,41 +109,51 @@ class BudgetTrackerAccount:
         height = 0.35
         
         plt.figure(figsize=(10, 8))
-        plt.title(f"Monthly Income vs Expense - Account {self.account_id}")
+        plt.title(f"Monthly Income vs Expense - Account {self.owner_name}")
         plt.xlabel("Month")
         plt.ylabel("$")
         plt.barh(x + height/2, self.income, height, color="blue", label="Income")
         plt.barh(x - height/2, self.expense, height, color="red", label="Expense")
         plt.yticks(x, months)
         plt.legend() 
-        plt.savefig(self.__get_chart_path(f"bar_chart_{self.account_id}.png"))
+        plt.savefig(self.__get_chart_path(f"bar_chart_{self.owner_name}.png"))
         plt.close() 
 
     def financial_analysis(self): 
+        chart_paths = [
+            self.__get_chart_path(f"pie_chart_{self.owner_name}.png"),
+            self.__get_chart_path(f"line_chart_{self.owner_name}.png"),
+            self.__get_chart_path(f"bar_chart_{self.owner_name}.png"),
+        ]
+
+        for path in chart_paths:
+            if os.path.exists(path):
+                os.remove(path)
+
         self.__creating_bar_chart() 
         self.__creating_line_chart() 
         self.__creating_pie_chart() 
 
-if __name__ == "__main__": 
-    account = BudgetTrackerAccount(
-        account_id=1,
-        balance=[3000, 3200, 3500, 3800, 4000, 4200, 4500, 4800, 5000, 5200, 5500, 5800],
-        income=[2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000],
-        expense=[800, 850, 900, 750, 800, 820, 780, 810, 790, 830, 860, 870]
-    )
+# if __name__ == "__main__": 
+#     account = BudgetTrackerAccount(
+#         name="Henry",
+#         balance=[3000, 3200, 3500, 3800, 4000, 4200, 4500, 4800, 5000, 5200, 5500, 5800],
+#         income=[2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000],
+#         expense=[800, 850, 900, 750, 800, 820, 780, 810, 790, 830, 860, 870]
+#     )
 
-    account.add_transaction("06/01/25", "Grocery Store", "Food", "Expense", 120)
-    account.add_transaction("06/03/25", "Salary", "Other", "Income", 2000)
-    account.add_transaction("06/05/25", "Bus Pass", "Transport", "Expense", 50)
-    account.add_transaction("06/10/25", "Rent", "Housing", "Expense", 900)
-    account.add_transaction("06/12/25", "Amazon", "Shopping", "Expense", 75)
-    account.add_transaction("06/15/25", "Restaurant", "Food", "Expense", 45)
-    account.add_transaction("06/18/25", "Uber", "Transport", "Expense", 30)
-    account.add_transaction("06/20/25", "Netflix", "Other", "Expense", 15)
-    account.add_transaction("06/22/25", "Freelance", "Other", "Income", 500)
-    account.add_transaction("06/25/25", "Zara", "Shopping", "Expense", 200)
+#     account.add_transaction("06/01/25", "Grocery Store", "Food", "Expense", 120)
+#     account.add_transaction("06/03/25", "Salary", "Other", "Income", 2000)
+#     account.add_transaction("06/05/25", "Bus Pass", "Transport", "Expense", 50)
+#     account.add_transaction("06/10/25", "Rent", "Housing", "Expense", 900)
+#     account.add_transaction("06/12/25", "Amazon", "Shopping", "Expense", 75)
+#     account.add_transaction("06/15/25", "Restaurant", "Food", "Expense", 45)
+#     account.add_transaction("06/18/25", "Uber", "Transport", "Expense", 30)
+#     account.add_transaction("06/20/25", "Netflix", "Other", "Expense", 15)
+#     account.add_transaction("06/22/25", "Freelance", "Other", "Income", 500)
+#     account.add_transaction("06/25/25", "Zara", "Shopping", "Expense", 200)
 
-    account.financial_analysis() 
+#     account.financial_analysis() 
         
 
         
