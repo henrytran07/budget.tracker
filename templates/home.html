@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="images/trackr_logo.png">
+    <title>Trackr | Home</title>
+    <link rel="stylesheet" href="/asset/home.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+        <h1>Trackr</h1>
+    </header>
+
+    <section class="summary">
+        <h2 class="summary-title">Summary</h2>
+        <div class="summary-card">
+            <div class="balance">
+                <p class="label">Total Balance</p>
+                <h2 id="total-balance">${{ balance }}</h2>
+                <p class="trend">-> this month</p>
+            </div>
+
+            <div class="income">
+                <p class="label">Total Income</p>
+                <h2 id="total-income">${{ income }}</h2>
+                <p class="trend">-> this month</p>
+            </div>
+
+            <div class="expense">
+                <p class="label">Total Expense</p>
+                <h2 id="total-expense">${{ expense }}</h2>
+                <p class="trend">-> this month</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="sync-to-bank"> 
+        <h2 class="sync-to-bank-title">🏦 Connect Your Bank</h2>
+
+        <form action="/choose-bank" method="get">
+            <input type="hidden" name="user_id" value="{{ user_id }}">
+            <div class="bank-options">
+                <label class="bank-option">
+                    <input type="radio" name="bank_name" value="chase">
+                    Chase Bank
+                </label>
+
+                <label class="bank-option">
+                    <input type="radio" name="bank_name" value="boa">
+                    Bank of America
+                </label>
+
+                <label class="bank-option">
+                    <input type="radio" name="bank_name" value="wells">
+                    Wells Fargo
+                </label>
+            </div>
+
+            <button type="submit" class="bank-connection-btn">Connect</button>
+        </form>
+    </section>
+
+    <section class="add-transaction">
+        <h2>Add Transaction</h2>
+
+        <form class="transaction-form" action="/dashboard/{{ user_id }}" method="post">
+
+            <input
+                type="date"
+                id="date"
+                name="date"
+                class="form-input"
+                placeholder="Date"
+            />
+
+            <input
+                type="text"
+                id="description"
+                name="description"
+                class="form-input"
+                placeholder="What was it for?"
+            />
+
+            <input
+                type="number"
+                id="amount"
+                name="amount"
+                class="form-input"
+                placeholder="Amount e.g. 40"
+            />
+
+            <select id="type" name="transaction_type" class="form-input">
+                <option value="">Select Type</option>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
+
+            <select id="category" name="category" class="form-input">
+                <option value="">Select Category</option>
+                <option value="food">🍔 Food</option>
+                <option value="transport">🚗 Transport</option>
+                <option value="housing">🏠 Housing</option>
+                <option value="shopping">🛍️ Shopping</option>
+                <option value="other">📦 Other</option>
+            </select>
+
+            <button type="submit" class="form-btn">+ Add</button>
+        </form>
+    </section>
+
+    <section class="transactions">
+        <h2 class="transaction-title">Transactions</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody id="transaction-body">
+                {% for t in transactions %}
+                <tr>
+                    <td>{{ t["date"] }}</td>
+                    <td>{{ t["description"] }}</td>
+                    <td>{{ t["category"] }}</td>
+                    <td>{{ t["type"] }}</td>
+                    <td>${{ t["amount"] }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5">No transactions yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="graphical-analysis">
+        <h2 class="graphical-analysis-title">Financial Analysis</h2>
+        {% for path in chart_paths %}
+            <img src="{{ path }}" class="{{ class_names[loop.index0] }}" alt="Chart">
+        {% endfor %}
+    </section>
+</body>
+</html>

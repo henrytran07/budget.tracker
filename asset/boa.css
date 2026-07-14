@@ -141,7 +141,7 @@ header {
     margin: 20px;
 }
 
-.log-in-left,
+.log-in-left, 
 .log-in-right {
     flex: 1;
     padding: 20px;

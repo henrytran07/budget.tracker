@@ -1,29 +1,41 @@
-from budget_tracker_account import * 
+from .budget_tracker_account import * 
+from .banking_manager import * 
 import random 
+from fastapi import APIRouter, Request, Form
+from fastapi.responses import RedirectResponse
+from fastapi.templating import Jinja2Templates
+import json
+import os
 
 class BudgetTrackerManager: 
     def __init__(self):
-        """
-            account_ids: set(account_id)
-            accounts: dict(account_ids : budget_tracker_account)
-            user_credentials: dict(user_email : {user_password, and user_id}) 
-            BudgetTrackerAccount: name, balance, income, expense, 
-        """
         self.account_ids = set() 
         self.accounts = {}
         self.user_credentials = {}
 
+        folder_path = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(folder_path, "..", "information", "trkr_account.json")
+        with open(file_path, "r") as file: 
+            saved_data = json.load(file)
+            self.user_credentials = saved_data["user_credentials"]
+        
+        for _, data in self.user_credentials.items():
+            user_id = data["user_id"]
+            self.account_ids.add(user_id)
+            self.accounts[user_id] = BudgetTrackerAccount(
+                data["gv_name"],
+                balance=list(data["balance"]),
+                income=list(data["income"]),
+                expense=list(data["expense"]),
+            )
+
     def __generate_user_id(self):
-        n = max(len(self.account_ids), 1)
-        pool = set(range(1, 5 * n + 1)) - set(self.account_ids)
-        return random.choice(list(pool))
+        uid = random.randint(1, 10**9)
+        while uid in self.account_ids: 
+            uid = random.randint(1, 10**9)
+        return uid
     
     def sign_up(self, gv_name, email, password):
-        """
-            api sent information of goverment name, email, password 
-            Return False if email isn't in user_credentials or gv_name || email || password is a empty string ("")
-            else Return True 
-        """
         if email in self.user_credentials:
             return {"success": False, "error": "Email already registered"}
         
@@ -36,14 +48,13 @@ class BudgetTrackerManager:
             "user_password": password,
             "user_id": user_id
         }
-        self.accounts[user_id] = BudgetTrackerAccount(gv_name)
+        self.accounts[user_id] = BudgetTrackerAccount(gv_name, balance=[0] * 12,
+                                                    income=[0] * 12,
+                                                    expense=[0] * 12)
 
         return {"success": True, "user_id": user_id}
     
     def sign_in(self, email, password): 
-        """
-            api sent email, and password to verify
-        """
         if not email or not password:                         
             return {"success": False, "error": "All fields are required"}
         
@@ -55,67 +66,113 @@ class BudgetTrackerManager:
             return {"success": False, "error": "Wrong Email or Password"}
 
         user_id = self.user_credentials[email]["user_id"]
-        return {"success": True, "account": self.accounts[user_id]}
+
+        return {"success": True, "user_id": user_id}
     
 
+router = APIRouter() 
+manager = BudgetTrackerManager()
+bank_manager = BankingManager() 
+templates = Jinja2Templates(directory="templates") 
 
-# if __name__ == "__main__": 
-#     manager = BudgetTrackerManager()
+@router.post("/")
+def login(request: Request, email: str = Form(...), password: str = Form(...)):
+    status = manager.sign_in(email, password)
 
-#     print("=" * 40)
-#     print("SIGN UP TESTS")
-#     print("=" * 40)
+    if status["success"]:
+        return RedirectResponse(
+            url=f"/dashboard/{status['user_id']}", 
+            status_code=303
+        )
+    
+    return templates.TemplateResponse(
+        request=request,
+        name="sign_in.html",
+        context={"error": status["error"]}
+    )
+@router.get("/")
+def login_page(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="sign_in.html",
+        context={}
+    )
 
-#     # Normal sign up
-#     print(manager.sign_up("John Doe", "john@email.com", "pass123"))
-#     # Expected: {"success": True, "user_id": ...}
+@router.post("/sign-up")
+def sign_up(request : Request, gv_name: str = Form(...), email: str = Form(...), password: str = Form(...)): 
+    status = manager.sign_up(gv_name, email, password)
+    if status["success"]:
+        return RedirectResponse(
+            url="/", 
+            status_code=303
+        )
 
-#     # Duplicate email
-#     print(manager.sign_up("John Doe", "john@email.com", "pass123"))
-#     # Expected: {"success": False, "error": "Email already registered"}
+    return templates.TemplateResponse(
+        request=request, 
+        name="sign_up.html", 
+        context={"error": status["error"]}
+    )
 
-#     # Empty fields
-#     print(manager.sign_up("", "jane@email.com", "pass123"))
-#     # Expected: {"success": False, "error": "All fields are required"}
+@router.get("/sign-up")
+def sign_up_page(request : Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="sign_up.html",
+        context={}
+    )
 
-#     print(manager.sign_up("Jane Doe", "", "pass123"))
-#     # Expected: {"success": False, "error": "All fields are required"}
+@router.get("/dashboard/{user_id}")
+def dashboard(request : Request, user_id: int): 
+    account = manager.accounts[user_id]
+    dashboard_info = account.get_dashboard_info()
+    name = account.owner_name
+    chart_path, class_names = account.financial_analysis()
+    return templates.TemplateResponse(
+        request=request, 
+        name="home.html", 
+        context={**dashboard_info, "transactions": account.transactions, "user_id": user_id, "name": name, "chart_paths": chart_path, "class_names": class_names}
+    )
 
-#     print(manager.sign_up("Jane Doe", "jane@email.com", ""))
-#     # Expected: {"success": False, "error": "All fields are required"}
+@router.get("/choose-bank")
+def choose_bank(bank_name: str, user_id: int):
+    if bank_name == "boa":
+        return RedirectResponse(
+            url=f"/bank-of-america-login?user_id={user_id}",
+            status_code=303
+        )
 
-#     # Second valid user
-#     print(manager.sign_up("Jane Doe", "jane@email.com", "mypassword"))
-#     # Expected: {"success": True, "user_id": ...}
+    return {"error": "Unknown bank"}
 
-#     print("=" * 40)
-#     print("SIGN IN TESTS")
-#     print("=" * 40)
+@router.get("/bank-of-america-login")
+def boa_login_page(request: Request, user_id: int):
+    return templates.TemplateResponse(
+        request=request,
+        name="boa.html",
+        context={"user_id": user_id}
+    )
 
-#     # Correct credentials
-#     print(manager.sign_in("john@email.com", "pass123"))
-#     # Expected: {"success": True, "account": <BudgetTrackerAccount>}
+@router.post("/dashboard/{user_id}")
+def create_transaction(user_id: int, date: str = Form(...), description: str = Form(...), amount: float = Form(...), transaction_type: str = Form(...), category: str = Form(...)): 
+    account = manager.accounts[user_id]
+    account.add_transaction(date, description, amount, transaction_type, category)
+    return RedirectResponse(
+        url=f"/dashboard/{user_id}", 
+        status_code=303
+    )
 
-#     # Wrong password
-#     print(manager.sign_in("john@email.com", "wrongpass"))
-#     # Expected: {"success": False, "error": "Wrong Email or Password"}
-
-#     # Email not registered
-#     print(manager.sign_in("unknown@email.com", "pass123"))
-#     # Expected: {"success": False, "error": "Email is not registered in the system yet"}
-
-#     # Empty fields
-#     print(manager.sign_in("", "pass123"))
-#     # Expected: {"success": False, "error": "All fields are required"}
-
-#     print(manager.sign_in("john@email.com", ""))
-#     # Expected: {"success": False, "error": "All fields are required"}
-
-#     print("=" * 40)
-#     print("STATE CHECK")
-#     print("=" * 40)
-
-#     # Verify internal state looks correct
-#     print("Account IDs:", manager.account_ids)
-#     print("Registered emails:", list(manager.user_credentials.keys()))
-#     print("Accounts:", manager.accounts)
+@router.post("/bank-of-america-login")
+def boa_login_verification(request: Request, bank_user_id: str = Form(), password: str = Form(), user_id: int = Form()):
+    status = bank_manager.user_credential_verification(bank_user_id, password)
+    if status["success"] == True:
+        print(f"user_id: {user_id}")
+        transactions = status["transactions"]
+        account = manager.accounts[user_id]
+        for t in transactions:
+            account.add_transaction(t["date"], t["description"], t["amount"], t["type"], t["category"])
+        return RedirectResponse(url=f"/dashboard/{user_id}", status_code=303)
+    
+    return templates.TemplateResponse(
+        request=request,
+        name="boa.html",
+        context={"error": "Invalid credentials", "user_id": user_id}
+    )

@@ -1,0 +1,21 @@
+{
+  "budget.trckr": {
+    "password": "1234",
+    "transactions": [
+      {
+        "date": "07/10/2026",
+        "description": "Coffee Shop",
+        "category": "Food",
+        "type": "expense",
+        "amount": 6.5
+      },
+      {
+        "date": "07/09/2026",
+        "description": "Paycheck",
+        "category": "Income",
+        "type": "income",
+        "amount": 1200
+      }
+    ]
+  }
+}
