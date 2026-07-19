@@ -217,3 +217,27 @@ tbody tr:last-child td {
         gap: 16px;
     }
 }
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logout-image {
+    width: 120px;
+    height: auto;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.logout-image:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+
+.logout-link {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+}

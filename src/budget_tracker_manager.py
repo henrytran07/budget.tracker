@@ -7,6 +7,7 @@ from fastapi.templating import Jinja2Templates
 import json
 import os
 
+
 class BudgetTrackerManager: 
     def __init__(self):
         self.account_ids = set() 
@@ -96,6 +97,11 @@ def login_page(request: Request):
         request=request,
         name="sign_in.html",
         context={}
+    )
+
+@router.get("/logout")
+def logout():
+    return RedirectResponse(url="/", status_code=303
     )
 
 @router.post("/sign-up")
