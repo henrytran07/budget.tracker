@@ -156,9 +156,10 @@
 
     <section class="graphical-analysis">
         <h2 class="graphical-analysis-title">Financial Analysis</h2>
-        {% for path in chart_paths %}
-            <img src="{{ path }}" class="{{ class_names[loop.index0] }}" alt="Chart">
+        {% for path in chart_paths %} 
+            <img src={{path}} alt="Charts">
         {% endfor %}
+        <!-- <img src="../financial_analysis/meme_Tran/bar_chart_meme_Tran.png"> -->
     </section>
 </body>
 </html>

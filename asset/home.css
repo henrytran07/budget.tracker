@@ -204,6 +204,36 @@ tbody tr:last-child td {
     border-bottom: none;
 }
 
+.graphical-analysis {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    padding: 30px;
+    max-width: 1200px;
+    margin: 40px auto 0;
+    box-sizing: border-box;
+}
+ 
+.graphical-analysis-title {
+    width: 100%;
+    text-align: center;
+    color: navy;
+    margin: 0;
+}
+ 
+.graphical-analysis img {
+    width: 33%;
+    min-width: 320px;
+    max-width: 550px;
+    height: auto;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 8px;
+    padding: 5px;
+    box-sizing: border-box;
+}
 
 
 /* ===== Responsive ===== */

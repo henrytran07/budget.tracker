@@ -132,11 +132,11 @@ def dashboard(request : Request, user_id: int):
     account = manager.accounts[user_id]
     dashboard_info = account.get_dashboard_info()
     name = account.owner_name
-    chart_path, class_names = account.financial_analysis()
+    chart_path= account.financial_analysis()
     return templates.TemplateResponse(
         request=request, 
         name="home.html", 
-        context={**dashboard_info, "transactions": account.transactions, "user_id": user_id, "name": name, "chart_paths": chart_path, "class_names": class_names}
+        context={**dashboard_info, "transactions": account.transactions, "user_id": user_id, "name": name, "chart_paths": chart_path}
     )
 
 @router.get("/choose-bank")

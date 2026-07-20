@@ -81,11 +81,16 @@ class BudgetTrackerAccount:
             if category in map_idx_category:
                 category_expenses[map_idx_category[category]] += amount 
         
-        return category_expenses
+        return category_expenses    
+    
+    def _replace_spaces_with_underscore(self, name):
+        return name.replace(" ", "_")
 
     def __get_chart_path(self, filename):
         base = os.path.dirname(os.path.abspath(__file__))
-        folder_path = os.path.join(base, "..", "financial_analysis", self.owner_name)
+        name = self.owner_name
+        name = self._replace_spaces_with_underscore(name)
+        folder_path = os.path.join(base, "..", "financial_analysis", name)
         os.makedirs(folder_path, exist_ok=True)
         return os.path.join(folder_path, filename)
     
@@ -103,7 +108,9 @@ class BudgetTrackerAccount:
         else:
             plt.text(0.5, 0.5, "The expense can't be categorized", ha="center", va="center", fontsize=20)
             plt.axis("off")
-        plt.savefig(self.__get_chart_path(f"pie_chart_{self.owner_name}.png"))
+        
+        name = self._replace_spaces_with_underscore(self.owner_name)
+        plt.savefig(self.__get_chart_path(f"pie_chart_{name}.png"))
         plt.close()
 
     def __creating_line_chart(self): 
@@ -116,7 +123,8 @@ class BudgetTrackerAccount:
         plt.xlabel("Month")
         plt.ylabel("Total Balance")
         plt.plot(months, self.balance)
-        plt.savefig(self.__get_chart_path(f"line_chart_{self.owner_name}.png"))
+        name = self._replace_spaces_with_underscore(self.owner_name)
+        plt.savefig(self.__get_chart_path(f"line_chart_{name}.png"))
         plt.close() 
     
     def __creating_bar_chart(self): 
@@ -135,14 +143,16 @@ class BudgetTrackerAccount:
         plt.barh(x - height/2, self.expense, height, color="red", label="Expense")
         plt.yticks(x, months)
         plt.legend() 
-        plt.savefig(self.__get_chart_path(f"bar_chart_{self.owner_name}.png"))
+        name = self._replace_spaces_with_underscore(self.owner_name)
+        plt.savefig(self.__get_chart_path(f"bar_chart_{name}.png"))
         plt.close() 
 
     def financial_analysis(self): 
+        name = self._replace_spaces_with_underscore(self.owner_name)
         filenames = [
-            f"pie_chart_{self.owner_name}.png",
-            f"line_chart_{self.owner_name}.png",
-            f"bar_chart_{self.owner_name}.png",
+            f"pie_chart_{name}.png",
+            f"line_chart_{name}.png",
+            f"bar_chart_{name}.png",
         ]
 
         for filename in filenames:
@@ -155,9 +165,9 @@ class BudgetTrackerAccount:
         self.__creating_pie_chart()
 
         return [
-            f"/financial_analysis/{self.owner_name}/{filename}"
+            f"/financial_analysis/{name}/{filename}"
             for filename in filenames
-        ], ["pie_chart", "line_chart", "bar_chart"]
+        ]
     
 # if __name__ == "__main__": 
 #     account = BudgetTrackerAccount("Henry", 
