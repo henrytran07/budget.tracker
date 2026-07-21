@@ -4,6 +4,7 @@ import random
 from fastapi import APIRouter, Request, Form
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
+from typing import Optional
 import json
 import os
 
@@ -101,8 +102,7 @@ def login_page(request: Request):
 
 @router.get("/logout")
 def logout():
-    return RedirectResponse(url="/", status_code=303
-    )
+    return RedirectResponse(url="/", status_code=303)
 
 @router.post("/sign-up")
 def sign_up(request : Request, gv_name: str = Form(...), email: str = Form(...), password: str = Form(...)): 
@@ -182,3 +182,4 @@ def boa_login_verification(request: Request, bank_user_id: str = Form(), passwor
         name="boa.html",
         context={"error": "Invalid credentials", "user_id": user_id}
     )
+
