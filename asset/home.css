@@ -241,3 +241,22 @@ header {
     top: 20px;
     right: 30px;
 }
+
+.expense.expense-green {
+    background-color: lightgreen !important;
+    border-color: green !important;
+}
+
+.expense.expense-yellow {
+    background-color: yellow !important;
+    border-color: orange !important;
+}
+
+.expense.expense-red {
+    background-color: lightcoral !important;
+    border-color: red !important;
+}
+
+.expense {
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}

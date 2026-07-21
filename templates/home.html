@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/jpg" href="images/trackr_logo.png">
     <title>Trackr | Home</title>
-    <link rel="stylesheet" href="/asset/home.css">
+    <link rel="stylesheet" href="/asset/home.css?v=2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -42,7 +42,11 @@
                 <p class="trend">-> this month</p>
             </div>
 
-            <div class="expense">
+            <div class="expense"
+             id="expense-card"
+              data-income="{{ income }}"
+               data-expense="{{ expense }}"
+               >
                 <p class="label">Total Expense</p>
                 <h2 id="total-expense">${{ expense }}</h2>
                 <p class="trend">-> this month</p>
@@ -160,5 +164,32 @@
             <img src="{{ path }}" class="{{ class_names[loop.index0] }}" alt="Chart">
         {% endfor %}
     </section>
+
+    <script>
+        function updateExpenseColor() {
+            const expenseCard = document.getElementById("expense-card");
+
+            const income = Number(expenseCard.dataset.income);
+            const expense = Number(expenseCard.dataset.expense);
+
+            expenseCard.classList.remove(
+                "expense-green",
+                "expense-yellow",
+                "expense-red"
+            );
+
+            if (income <= 0 || expense > income) {
+                expenseCard.classList.add("expense-red");
+            } 
+            else if (expense >= income * 0.75) {
+                expenseCard.classList.add("expense-yellow");
+            }
+            else {
+                expenseCard.classList.add("expense-green");
+            }
+        }
+
+        updateExpenseColor();
+    </script>
 </body>
 </html>
