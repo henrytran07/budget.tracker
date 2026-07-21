@@ -17,14 +17,11 @@
 
     <header>
         <h1>Trackr</h1>
-
-        <a href="/logout" class="logout-link">
-            <img
-            src="/images/12635060.png"
-            alt="Logout"
-            class="logout-image"
-            >
-        </a>
+        <select class="account-menu">
+            <option value="" selected disabled hidden>{{name}}</option>
+            <option value="profile">Profile</option>
+            <option value="logout">Logout</option>
+        </select>
     </header>
 
     <section class="summary">
