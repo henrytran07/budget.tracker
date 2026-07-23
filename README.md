@@ -9,7 +9,9 @@ HTML/CSS; the dashboard summary cards are a **React** component bundled with
 > UCLA mini-project · team of 3 · active development on the `api` branch
 
 ---
+## Demo
 
+![Trackr demo](video/demo.gif)
 ## Features
 
 - **Sign Up / Sign In** — `BudgetTrackerManager` handles account creation,
