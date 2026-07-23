@@ -41,7 +41,11 @@
                 <p class="trend">-> this month</p>
             </div>
 
-            <div class="expense">
+            <div class="expense"
+             id="expense-card"
+              data-income="{{ income }}"
+               data-expense="{{ expense }}"
+               >
                 <p class="label">Total Expense</p>
                 <h2 id="total-expense">${{ expense }}</h2>
                 <p class="trend">-> this month</p>
@@ -151,5 +155,32 @@
         {% endfor %}
         <!-- <img src="../financial_analysis/meme_Tran/bar_chart_meme_Tran.png"> -->
     </section>
+
+    <script>
+        function updateExpenseColor() {
+            const expenseCard = document.getElementById("expense-card");
+
+            const income = Number(expenseCard.dataset.income);
+            const expense = Number(expenseCard.dataset.expense);
+
+            expenseCard.classList.remove(
+                "expense-green",
+                "expense-yellow",
+                "expense-red"
+            );
+
+            if (income <= 0 || expense > income) {
+                expenseCard.classList.add("expense-red");
+            } 
+            else if (expense >= income * 0.75) {
+                expenseCard.classList.add("expense-yellow");
+            }
+            else {
+                expenseCard.classList.add("expense-green");
+            }
+        }
+
+        updateExpenseColor();
+    </script>
 </body>
 </html>
