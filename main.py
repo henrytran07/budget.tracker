@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 
 app = FastAPI()
 os.makedirs("financial_analysis", exist_ok=True)
+os.makedirs("static", exist_ok=True)
+app.mount("/static", StaticFiles(directory="static"), name="static")
 app.mount("/asset", StaticFiles(directory="asset"), name="asset")
 app.mount("/images", StaticFiles(directory="images"), name="images")
 app.mount("/financial_analysis", StaticFiles(directory="financial_analysis"), name="analysis")

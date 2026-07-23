@@ -85,7 +85,7 @@ header h1 {
     color: #94a3b8;
     margin: 0;
 }
-/* ===== Connect Your Bank ===== */
+/* = Connect Your Bank ===== */
 .sync-to-bank{
     margin-top: 20px;
     padding: 0 32px; 
@@ -253,25 +253,6 @@ tbody tr:last-child td {
     box-sizing: border-box;
 }
 
-
-/* ===== Responsive ===== */
-@media (max-width: 768px) {
-    .summary,
-    .transaction-form {
-        flex-direction: column;
-    }
-    header {
-        flex-direction: column;
-        gap: 16px;
-    }
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .logout-image {
     width: 120px;
     height: auto;
@@ -290,21 +271,22 @@ header {
     right: 30px;
 }
 
-.expense.expense-green {
-    background-color: lightgreen !important;
-    border-color: green !important;
+@media (max-width: 768px) {
+    .summary,
+    .transaction-form {
+        flex-direction: column;
+    }
+    header {
+        flex-direction: column;
+        gap: 16px;
+    }
 }
 
-.expense.expense-yellow {
-    background-color: yellow !important;
-    border-color: orange !important;
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.expense.expense-red {
-    background-color: lightcoral !important;
-    border-color: red !important;
-}
 
-.expense {
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-}
+

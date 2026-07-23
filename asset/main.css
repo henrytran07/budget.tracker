@@ -1,0 +1,53 @@
+.summary {
+    margin-top: 20px;
+    padding: 0 32px;
+}
+
+.summary-title {
+    text-align: center;
+    margin: 12px 0 40px;
+    color: navy;
+}
+
+.summary-card {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    align-items: stretch;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.label {
+    font-weight: bold; 
+    color: navy; 
+}
+
+.balance,
+.income,
+.expense {
+    flex: 1;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.red {
+    background-color: white;
+    color: red; 
+}
+
+.yellow {
+    background-color: white;
+    color: black;
+}
+
+.green {
+    color: green;
+}
+
+.balance h2,
+.income h2,
+.expense h2 {
+    text-align: left;
+    margin-left: 60px;
+}

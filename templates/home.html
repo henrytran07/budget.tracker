@@ -26,32 +26,15 @@
             </form>
     </header>
 
-    <section class="summary">
-        <h2 class="summary-title">Summary</h2>
-        <div class="summary-card">
-            <div class="balance">
-                <p class="label">Total Balance</p>
-                <h2 id="total-balance">${{ balance }}</h2>
-                <p class="trend">-> this month</p>
-            </div>
+    <div
+        id="root"
+        data-balance="{{ balance }}"
+        data-income="{{ income }}"
+        data-expense="{{ expense }}"
+    ></div>
 
-            <div class="income">
-                <p class="label">Total Income</p>
-                <h2 id="total-income">${{ income }}</h2>
-                <p class="trend">-> this month</p>
-            </div>
-
-            <div class="expense"
-             id="expense-card"
-              data-income="{{ income }}"
-               data-expense="{{ expense }}"
-               >
-                <p class="label">Total Expense</p>
-                <h2 id="total-expense">${{ expense }}</h2>
-                <p class="trend">-> this month</p>
-            </div>
-        </div>
-    </section>
+    <link rel="stylesheet" href="/static/app.css">
+    <script type="module" src="/static/app.js"></script>
 
     <section class="sync-to-bank"> 
         <h2 class="sync-to-bank-title">🏦 Connect Your Bank</h2>
@@ -155,32 +138,5 @@
         {% endfor %}
         <!-- <img src="../financial_analysis/meme_Tran/bar_chart_meme_Tran.png"> -->
     </section>
-
-    <script>
-        function updateExpenseColor() {
-            const expenseCard = document.getElementById("expense-card");
-
-            const income = Number(expenseCard.dataset.income);
-            const expense = Number(expenseCard.dataset.expense);
-
-            expenseCard.classList.remove(
-                "expense-green",
-                "expense-yellow",
-                "expense-red"
-            );
-
-            if (income <= 0 || expense > income) {
-                expenseCard.classList.add("expense-red");
-            } 
-            else if (expense >= income * 0.75) {
-                expenseCard.classList.add("expense-yellow");
-            }
-            else {
-                expenseCard.classList.add("expense-green");
-            }
-        }
-
-        updateExpenseColor();
-    </script>
 </body>
 </html>
