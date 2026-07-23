@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/jpg" href="images/trackr_logo.png">
+    <link rel="icon" type="image/jpg" href="../images/trackr_logo.png">
     <title>Trackr | Home</title>
-    <link rel="stylesheet" href="/asset/home.css?v=2">
+    <link rel="stylesheet" href="../asset/home.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,14 +17,13 @@
 
     <header>
         <h1>Trackr</h1>
-
-        <a href="/logout" class="logout-link">
-            <img
-            src="/images/12635060.png"
-            alt="Logout"
-            class="logout-image"
-            >
-        </a>
+            <form class="account_menu_actions" method="get" id="account-menu-form">
+                <select class="account-menu" name="account_menu_option"
+                        onchange="if (this.value) window.location.href = this.value;">
+                    <option value="" selected disabled hidden>{{ name }}</option>
+                    <option value="/logout">Logout</option>
+                </select>
+            </form>
     </header>
 
     <section class="summary">
@@ -83,28 +82,19 @@
     <section class="add-transaction">
         <h2>Add Transaction</h2>
 
-        <form class="transaction-form" action="/dashboard/{{ user_id }}" method="post">
+        <form class="transaction-form" action="/dashboard/{{user_id}}" method="post">
 
-            <input
-                type="date"
-                id="date"
-                name="date"
+            <input type="date" id="date" name="date"
                 class="form-input"
                 placeholder="Date"
             />
 
-            <input
-                type="text"
-                id="description"
-                name="description"
+            <input type="text" id="description" name="description"
                 class="form-input"
                 placeholder="What was it for?"
             />
 
-            <input
-                type="number"
-                id="amount"
-                name="amount"
+            <input type="number" id="amount" name="amount"
                 class="form-input"
                 placeholder="Amount e.g. 40"
             />
@@ -160,9 +150,10 @@
 
     <section class="graphical-analysis">
         <h2 class="graphical-analysis-title">Financial Analysis</h2>
-        {% for path in chart_paths %}
-            <img src="{{ path }}" class="{{ class_names[loop.index0] }}" alt="Chart">
+        {% for path in chart_paths %} 
+            <img src={{path}} alt="Charts">
         {% endfor %}
+        <!-- <img src="../financial_analysis/meme_Tran/bar_chart_meme_Tran.png"> -->
     </section>
 
     <script>

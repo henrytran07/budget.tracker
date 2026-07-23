@@ -4,6 +4,7 @@ import random
 from fastapi import APIRouter, Request, Form
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
+from typing import Optional
 import json
 import os
 
@@ -101,8 +102,7 @@ def login_page(request: Request):
 
 @router.get("/logout")
 def logout():
-    return RedirectResponse(url="/", status_code=303
-    )
+    return RedirectResponse(url="/", status_code=303)
 
 @router.post("/sign-up")
 def sign_up(request : Request, gv_name: str = Form(...), email: str = Form(...), password: str = Form(...)): 
@@ -132,11 +132,11 @@ def dashboard(request : Request, user_id: int):
     account = manager.accounts[user_id]
     dashboard_info = account.get_dashboard_info()
     name = account.owner_name
-    chart_path, class_names = account.financial_analysis()
+    chart_path= account.financial_analysis()
     return templates.TemplateResponse(
         request=request, 
         name="home.html", 
-        context={**dashboard_info, "transactions": account.transactions, "user_id": user_id, "name": name, "chart_paths": chart_path, "class_names": class_names}
+        context={**dashboard_info, "transactions": account.transactions, "user_id": user_id, "name": name, "chart_paths": chart_path}
     )
 
 @router.get("/choose-bank")
@@ -182,3 +182,4 @@ def boa_login_verification(request: Request, bank_user_id: str = Form(), passwor
         name="boa.html",
         context={"error": "Invalid credentials", "user_id": user_id}
     )
+
